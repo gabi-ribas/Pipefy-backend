@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "8dfad45d-3b1b-4240-8fc7-2c8c04a6c122",
+		"name": "Pipefy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create pipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successfully create a pipe\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"pipe_id\", jsonData.data.createPipe.pipe.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDE0MTI2NjQsImVtYWlsIjoiZ2FicmllbGEuZC5vLnJpYmFzQGdtYWlsLmNvbSIsImFwcGxpY2F0aW9uIjozMDAxMTYzMTJ9fQ.l683AGNJWbRh1CCVKcuTohzGyZsJbaplfDjzU9hVSRGgyUbxdjJX4_CD8EwoXdRUi8Bj2U9UOGYzhqn24mFI3w",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation newPipe{\n  createPipe(input: {\n    name: \"{{$timestamp}}\",\n    organization_id: \"300613028\"\n  }) {\n\tclientMutationId\n    pipe {\n      id\n    }\n  }  \n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://api.pipefy.com/graphql",
+					"protocol": "https",
+					"host": [
+						"api",
+						"pipefy",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create phase",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful create a phase\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"phase_id\", jsonData.data.createPhase.phase.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDE0MTI2NjQsImVtYWlsIjoiZ2FicmllbGEuZC5vLnJpYmFzQGdtYWlsLmNvbSIsImFwcGxpY2F0aW9uIjozMDAxMTYzMTJ9fQ.l683AGNJWbRh1CCVKcuTohzGyZsJbaplfDjzU9hVSRGgyUbxdjJX4_CD8EwoXdRUi8Bj2U9UOGYzhqn24mFI3w",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation newPhase{\n  createPhase(input: {\n    name: \"startPhase\",\n    pipe_id: \"{{pipe_id}}\"\n  }) {\n    phase {\n      id\n    }\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://api.pipefy.com/graphql",
+					"protocol": "https",
+					"host": [
+						"api",
+						"pipefy",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create phase custom field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful create a custom field\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDE0MTI2NjQsImVtYWlsIjoiZ2FicmllbGEuZC5vLnJpYmFzQGdtYWlsLmNvbSIsImFwcGxpY2F0aW9uIjozMDAxMTYzMTJ9fQ.l683AGNJWbRh1CCVKcuTohzGyZsJbaplfDjzU9hVSRGgyUbxdjJX4_CD8EwoXdRUi8Bj2U9UOGYzhqn24mFI3w",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation newPhaseField{\n  createPhaseField(input: {\n    label: \"test field\",\n    phase_id: \"{{phase_id}}\", \n    type: \"statement\"\n  }) {\n      phase_field {\n        id\n      }\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://api.pipefy.com/graphql",
+					"protocol": "https",
+					"host": [
+						"api",
+						"pipefy",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful create a card\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDE0MTI2NjQsImVtYWlsIjoiZ2FicmllbGEuZC5vLnJpYmFzQGdtYWlsLmNvbSIsImFwcGxpY2F0aW9uIjozMDAxMTYzMTJ9fQ.l683AGNJWbRh1CCVKcuTohzGyZsJbaplfDjzU9hVSRGgyUbxdjJX4_CD8EwoXdRUi8Bj2U9UOGYzhqn24mFI3w",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation newCard{\n  createCard(input: {\n    pipe_id: \"{{pipe_id}}\"\n  }) {\n    card {\n      id\n    }\n  }\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://api.pipefy.com/graphql",
+					"protocol": "https",
+					"host": [
+						"api",
+						"pipefy",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
